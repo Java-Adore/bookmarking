@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+  
+	<context:component-scan base-package="eltaieb.elkhayat.bookmarking.business.serviceimp" />
+        <context:component-scan base-package="eltaieb.elkhayat.bookmarking.business.service" />
+	<context:component-scan base-package="eltaieb.elkhayat.bookmarking.api.daoimp" />
+	<context:component-scan base-package="eltaieb.elkhayat.bookmarking.api.dao" />
+        
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">  
+        <property name="driverClassName"  value="com.mysql.jdbc.Driver"></property>  
+        <property name="url" value="jdbc:mysql://localhost:3306/bookmarking_db"></property>  
+        <property name="username" value="root"></property>  
+        <property name="password" value="root"></property>  
+    </bean>  
+    
+    <bean id="sessionfactoryBean" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                 <value>eltaieb.elkhayat.bookmarking.entity.Advertise</value>
+                <value>eltaieb.elkhayat.bookmarking.entity.Bookmark</value>
+                <value>eltaieb.elkhayat.bookmarking.entity.Category</value>
+                <value>eltaieb.elkhayat.bookmarking.entity.Gender</value>
+                <value>eltaieb.elkhayat.bookmarking.entity.Role</value>
+                <value>eltaieb.elkhayat.bookmarking.entity.User</value>
+
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+    <property name="sessionFactory" ref="sessionfactoryBean"></property>
+    <!-- <property name="flushModeName" value="FLUSH_COMMIT"/> -->
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
+    <property name="sessionFactory" ref="sessionfactoryBean"/> 
+    </bean>
+    
+    
+     <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+         <property name="transactionManager" ref="transactionManager"></property>
+    </bean>
+    
+    <bean id="advertisingDAO" class="eltaieb.elkhayat.bookmarking.api.daoimp.AdvertisesDAOImpl"/>
+
+</beans>
