@@ -5,11 +5,13 @@
 package eltaieb.elkhayat.bookmarking.api.dao;
 
 import eltaieb.elkhayat.bookmarking.entity.Advertise;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author orcl
  */
-public class AdvertisesDAO extends AbstractDAO<Advertise>{
+
+public class AdvertisesDAO extends AbstractDAO<Advertise>{ 
     
 }

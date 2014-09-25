@@ -12,7 +12,8 @@
         
 
 		<security:intercept-url pattern="/user/*/**" access="hasRole('USER')"  />
-		
+		<security:intercept-url pattern="/template/*/**" access="permitAll"  />
+
 			
 		<security:form-login login-page="/login.xhtml"  />
 			

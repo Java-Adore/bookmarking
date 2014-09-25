@@ -16,7 +16,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  *
  * @author orcl
  */
-public class AbstractDAO <T extends Serializable>{
+public abstract class AbstractDAO <T extends Serializable>{
     
     @Autowired
     HibernateTemplate hibernateTemplate; 
